@@ -1,6 +1,7 @@
 // ParentComponent.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Product from "../product/Product";
+import Navbar from "../navbar/Navbar";
 
 const ParentComponent = () => {
   const [products, setProducts] = useState([
@@ -9,33 +10,60 @@ const ParentComponent = () => {
       name: "Product 1",
       imageUrl: "https://placehold.co/100x100",
       price: 10.99,
+      quantity: 1,
     },
     {
       id: 2,
       name: "Product 2",
       imageUrl: "https://placehold.co/100x100",
       price: 30.44,
+      quantity: 1,
     },
     {
       id: 3,
       name: "Product 3",
       imageUrl: "https://placehold.co/100x100",
       price: 25.99,
+      quantity: 1,
     },
     {
       id: 4,
       name: "Product 4",
       imageUrl: "https://placehold.co/100x100",
       price: 13.99,
+      quantity: 1,
     },
   ]);
+
+  const [totalCount, setTotalCount] = useState(0);
+
+  useEffect(() => {
+    updateTotalCount();
+  }, [products]);
+
+  const updateTotalCount = () => {
+    const count = products.reduce(
+      (total, product) => total + product.quantity,
+      0
+    );
+    setTotalCount(count);
+  };
 
   const handleDelete = (id) => {
     setProducts(products.filter((product) => product.id !== id));
   };
 
+  const handleQuantityChange = (id, newQuantity) => {
+    setProducts(
+      products.map((product) =>
+        product.id === id ? { ...product, quantity: newQuantity } : product
+      )
+    );
+  };
+
   return (
     <div>
+      <Navbar totalCount={totalCount} />
       {products.map((product) => (
         <Product
           key={product.id}
@@ -43,7 +71,10 @@ const ParentComponent = () => {
           name={product.name}
           imageUrl={product.imageUrl}
           price={product.price}
-          onDelete={handleDelete} // Pass onDelete function
+          quantity={product.quantity}
+          onQuantityChange={handleQuantityChange}
+          onDelete={handleDelete}
+          updateTotalCount={updateTotalCount}
         />
       ))}
     </div>

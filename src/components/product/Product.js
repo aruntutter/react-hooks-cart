@@ -2,21 +2,33 @@
 import React, { useState } from "react";
 import "./Product.css";
 
-const Product = ({ id, name, imageUrl, price, onDelete }) => {
-  const [quantity, setQuantity] = useState(1);
+const Product = ({
+  id,
+  name,
+  imageUrl,
+  price,
+  quantity,
+  onQuantityChange,
+  onDelete,
+  updateTotalCount,
+}) => {
+  // const [, setQuantity] = useState(1);
 
   const handleDecrease = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      onQuantityChange(id, quantity - 1); // Decrease quantity
+      updateTotalCount(); // Update total count
     }
   };
 
   const handleIncrease = () => {
-    setQuantity(quantity + 1);
+    onQuantityChange(id, quantity + 1); // Increase quantity
+    updateTotalCount(); // Update total count
   };
 
   const handleDeleteClick = () => {
-    onDelete(id); // Invoke onDelete function with product id
+    onDelete(id);
+    updateTotalCount();
   };
 
   return (

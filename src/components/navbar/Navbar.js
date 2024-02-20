@@ -8,12 +8,13 @@ const iconStyles = {
 };
 
 const Navbar = ({ totalCount }) => {
+  const count = isNaN(totalCount) ? 0 : totalCount;
   return (
     <div className="navbar">
       <h1>React CART</h1>
       <div className="cart-icon">
         <FaShoppingCart style={iconStyles} />
-        <span className="total-count">{totalCount}</span>
+        <span className="total-count">{count}</span>
       </div>
     </div>
   );
