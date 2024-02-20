@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import Product from "../product/Product";
 import Navbar from "../navbar/Navbar";
+import TotalAmount from "../total/TotalAmount";
 
 const ParentComponent = () => {
   const [products, setProducts] = useState([
@@ -35,11 +36,21 @@ const ParentComponent = () => {
     },
   ]);
 
+  const [totalPrice, setTotalPrice] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
 
   useEffect(() => {
+    updateTotalPrice();
     updateTotalCount();
   }, [products]);
+
+  const updateTotalPrice = () => {
+    const totalPrice = products.reduce(
+      (total, product) => total + product.price * product.quantity,
+      0
+    );
+    setTotalPrice(totalPrice);
+  };
 
   const updateTotalCount = () => {
     const count = products.reduce(
@@ -74,9 +85,11 @@ const ParentComponent = () => {
           quantity={product.quantity}
           onQuantityChange={handleQuantityChange}
           onDelete={handleDelete}
+          updateTotalPrice={updateTotalPrice}
           updateTotalCount={updateTotalCount}
         />
       ))}
+      <TotalAmount totalPrice={totalPrice} />
     </div>
   );
 };

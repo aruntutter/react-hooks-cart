@@ -1,0 +1,14 @@
+.total-amount {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto;
+}
+
+.total-amount p {
+  font-size: 20px;
+  padding: 10px 20px;
+  color: #fff;
+  background-color: #645CFF;
+  border-radius: 5px;
+}
