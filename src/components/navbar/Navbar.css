@@ -1,0 +1,25 @@
+.navbar {
+  width: 100vw;
+  color: #fff;
+  background-color: #645CFF;
+  padding: 2rem 1rem;
+
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.navbar .cart-icon {
+  font-size: 24px;
+  position: relative;
+}
+
+.cart-icon .total-count {
+  position: absolute;
+  top: 2%;
+  right: 10%;
+  transform: translate(-2%, -2%);
+  background-color: #A29DFF;
+  padding: 0px 5px;
+  border-radius: 10px;
+}
